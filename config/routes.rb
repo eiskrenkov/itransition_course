@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-  resources :posts
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  scope '(:locale)', locale: /en|ru/ do
+    devise_for :users
+
+    resources :posts
+    resources :blogs, only: [:index, :show]
+
+    root to: 'posts#index'
+  end
 end

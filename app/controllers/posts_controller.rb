@@ -1,9 +1,14 @@
 class PostsController < ApplicationController
+  RESULTS_PER_PAGE = 25
+
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @current_page = params[:page]&.to_i || 1
+    @pages_count = (Post.count / RESULTS_PER_PAGE.to_f).ceil
+
+    @posts = Post.limit(RESULTS_PER_PAGE).offset(RESULTS_PER_PAGE * (@current_page - 1))
   end
 
   # GET /posts/1 or /posts/1.json

@@ -1,0 +1,3 @@
+Rails/ApplicationRecord:
+  Exclude:
+  - db/migrate/*
